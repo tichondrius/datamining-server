@@ -1,0 +1,14 @@
+{
+  "name": "dataminingserver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://tichondrius@bitbucket.org/tichondrius/dataminingserver.git",
+  "author": "Tichondrius <tichondrius.btv@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.6"
+  }
+}
