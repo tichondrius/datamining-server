@@ -1,16 +1,24 @@
-const shelfController = (Shelf) => {
+const goodController = (Good) => {
   const get = (req, res) => {
     var query = {};
-    Shelf.find({})
-      .execute(err, shelfes => {
+    Good.find({})
+      .exec((err, goods) => {
         if (err) {
           res.status(404).error(err);
         }
-        else res.json(shelfes);
+        else res.json(goods);
+    });
+  }
+  const getById = (req, res) => {
+    const Id = req.params.goodId;
+    Good.findById(Id, (err, good) => {
+      if (err) res.status(404).error(error);
+      else res.json(good);
     });
   }
   return {
     get: get,
+    getById: getById,
   };
 }
-module.exports = shelfController;
+module.exports = goodController;

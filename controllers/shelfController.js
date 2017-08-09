@@ -1,10 +1,17 @@
-const express = require('express');
-
-var routes = (Shelf) => {
-  var bookRouter = express.Router();
-  var bookController = require('../controllers/goodController')(Shelf);
-  bookRouter.route('/')
-    .get(bookController.get);
-  return bookRouter; 
+const shelfController = (Shelf) => {
+  const get = (req, res) => {
+    var query = {};
+    Shelf.find({})
+      .populate('goods')
+      .exec((err, shelfes) => {
+        if (err) {
+          res.status(404).error(err);
+        }
+        else res.json(shelfes);
+    });
+  }
+  return {
+    get: get,
+  };
 }
-module.exports = routes;
+module.exports = shelfController;

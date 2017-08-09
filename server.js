@@ -13,8 +13,14 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+const Good = require('./models/goodModel');
+const Shelf = require('./models/shelfModel');
 
+const goodRouter = require('./routes/goodRoutes')(Good);
+const shelRouter = require('./routes/shelfRoutes')(Shelf);
 
+app.use('/api/shelves/', shelRouter);
+app.use('/api/goods', goodRouter);
 
 app.listen(port, () => {
   console.log(`The server is listening in port ${port}`);
