@@ -1,4 +1,6 @@
-const goodController = (Good) => {
+const Good = require('../models/index').Good;
+
+const goodController = () => {
   const get = (req, res) => {
     var query = {};
     Good.find({})

@@ -1,7 +1,7 @@
 const express = require('express');
-var routes = (Shelf) => {
+var routes = () => {
   let shelfRouter = express.Router();
-  const shelfController = require('../controllers/shelfController')(Shelf);
+  const shelfController = require('../controllers/shelfController')();
   shelfRouter.route('/')
     .get(shelfController.get);
 

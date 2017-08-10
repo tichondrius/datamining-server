@@ -1,4 +1,6 @@
-const shelfController = (Shelf) => {
+const Shelf = require('../models/index').Shelf;
+
+const shelfController = () => {
   const get = (req, res) => {
     var query = {};
     Shelf.find({})
