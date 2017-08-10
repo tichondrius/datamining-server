@@ -8,6 +8,7 @@ const goodModel = new Schema({
   price: Number,
   dateImport: Date,
   slug: String,
+  coor: Array,
 });
 
 module.exports = mongoose.model('Good', goodModel);
