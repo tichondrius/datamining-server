@@ -17,9 +17,11 @@ app.use(bodyParser.json());
 
 const goodRouter = require('./routes/goodRoutes')();
 const shelRouter = require('./routes/shelfRoutes')();
+const transactionRouter = require('./routes/transactionRoutes')();
 
-app.use('/api/shelves/', shelRouter);
+app.use('/api/shelves', shelRouter);
 app.use('/api/goods', goodRouter);
+app.use('/api/transactions', transactionRouter);
 
 app.listen(port, () => {
   console.log(`The server is listening in port ${port}`);
