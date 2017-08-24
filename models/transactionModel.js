@@ -5,4 +5,4 @@ const transactionModel = new Schema({
   goods: [{ type: Schema.Types.ObjectId, ref: 'Good' }]
 });
 
-module.exports = mongoose.model('Transacion', transactionModel);
+module.exports = mongoose.model('Transaction', transactionModel);
