@@ -10,6 +10,11 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.4",
-    "mongoose": "^4.11.6"
+    "express-react-views": "^0.10.2",
+    "mongoose": "^4.11.6",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
+    "react-dom": "^15.6.1",
+    "underscore": "^1.8.3"
   }
 }
