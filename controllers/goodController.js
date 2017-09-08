@@ -91,32 +91,42 @@ const goodController = () => {
         shelf.goods.splice(index, 1);
         newShelf.goods.push(good._id);
         good.coor = newCoor;
-        async.parallel([
-          (callback) => {
-            shelf.save((err) => {
-              if (err) {
-                callback(err);
-              } else callback(null, shelf);
-            });
-          },
-          (callback) => {
-            newShelf.save((err) => {
-              if (err) {
-                callback(err);
-              } else callback(null, newShelf);
-            });
-          },
-          (callback) => {
-            good.save((err) => {
-              if (err) {
-                callback(err);
-              } else callback(null, good);
-            });
-          },
-        ], (err, result) => {
-          if (err) res.status(404).send(err);
-          else res.json(result);
-        });
+        if (shelfId !== newShelfId) {
+          async.parallel([
+            (callback) => {
+              shelf.save((err) => {
+                if (err) {
+                  callback(err);
+                } else callback(null, shelf);
+              });
+            },
+            (callback) => {
+              newShelf.save((err) => {
+                if (err) {
+                  callback(err);
+                } else callback(null, newShelf);
+              });
+            },
+            (callback) => {
+              good.save((err) => {
+                if (err) {
+                  callback(err);
+                } else callback(null, good);
+              });
+            },
+          ], (err, result) => {
+            if (err) res.status(404).send(err);
+            else res.json({ status : 'success'});
+          });
+        }
+        else {
+          good.save((err) => {
+            if (err) {
+              res.status(404).send(err);
+            } else res.json({ status : 'success'});
+          });  
+        }
+        
       }
     });
   };

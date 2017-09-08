@@ -18,7 +18,6 @@ const convertToArray = (frequentItemSet) => {
 class HomePage extends React.Component {
   
   render() {
-    console.log(this.props);
     const { frequentItemSets, associationRules, minSupp, minConf } = this.props;
     const fis = convertToArray(frequentItemSets);
     return (
