@@ -17,10 +17,10 @@ const convertToCSVString = (trans) => {
   return csvStringResult;
 };
 
-const homeController = () => {
-  const get = (req, res) => {
-    const minSupp = req.query.minsupp || MIN_SUPP;
-    const minConf = req.query.minconf || MIN_CONF;
+
+
+const getAnalysisResult = (minSupp = MIN_SUPP, minConf = MIN_CONF) => {
+  return new Promise((resolve, reject) => {
     async.waterfall([
       // Read all transcations and filter and remove duplicated item
       (callback) => {
@@ -51,19 +51,41 @@ const homeController = () => {
         analysisResult.then(
           (dataAnalysis) => callback(null, dataAnalysis),
           (err) => callback(err));
-      }
-    ], (err, result) => {
-      if (err) {
-        res.status(500).send('Error !');
-      }
+      }], (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else resolve(result);
+    });
+  })
+}
+
+
+const homeController = () => {
+  const get = (req, res) => {
+    const minSupp = Number(req.query.minsupp) || MIN_SUPP;
+    const minConf = Number(req.query.minconf) || MIN_CONF;
+    getAnalysisResult(minSupp, minConf).then((result) => {
       const { frequentItemSets, associationRules } = result;
       res.render('index', { frequentItemSets, associationRules, minSupp, minConf });
-    });
-
-    
+    }, (error) => {
+      res.status(500).send('Error 1');
+      console.log(error);
+    })
+  }
+  const getRules = (req, res) => {
+    const minSupp = Number(req.query.minsupp) || MIN_SUPP;
+    const minConf = Number(req.query.minconf) || MIN_CONF;
+    getAnalysisResult(minSupp, minConf).then((result) => {
+      const { associationRules } = result;
+      res.json(associationRules);
+    }, (err) => {
+      res.status(500).send('Error !');
+    })
   }
   return {
-    get: get,
+    get,
+    getRules,
   };
 }
 module.exports = homeController;
