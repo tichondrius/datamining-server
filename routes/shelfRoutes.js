@@ -6,7 +6,8 @@ var routes = () => {
   const shelfController = require('../controllers/shelfController')();
   shelfRouter.route('/')
     .get(shelfController.get);
-  
+  shelfRouter.route('/updateShelves')
+    .post(shelfController.updateShelves);
 
   shelfRouter.use('/:shelfId', (req, res, next) => {
     Shelf.findById(req.params.shelfId, (err, shelf) => {
